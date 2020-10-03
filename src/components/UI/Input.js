@@ -12,6 +12,9 @@ import Label from "./Label";
 // -> https://www.w3schools.com/tags/tag_input.asp
 
 const baseStyle = css`
+  --color-fg: #eee;
+  --color-mg: #ddd;
+  --color-bg: #444;
   --font-size: inherit;
   --padding: 0.5rem;
   --margin: 0.5rem;
@@ -19,16 +22,13 @@ const baseStyle = css`
 `;
 
 const StyledInput = styled.input.attrs((props) => ({
-  onChange: props.changed,
-  placeholder: props.placeholder || "Enter text...",
-  required: props.required || false,
   type: props.type || "text"
 }))`
   ${baseStyle};
   border: none;
   border-radius: 2px;
-  background-color: var(--color-foreground);
-  color: var(--color-background);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-family: inherit;
   font-size: var(--font-size);
   margin-top: var(--margin);
@@ -36,6 +36,10 @@ const StyledInput = styled.input.attrs((props) => ({
   outline: none;
   padding: var(--padding);
   width: 100%;
+
+  ::placeholder {
+    color: var(--color-mg);
+  }
 
   ${(props) => {
     return (
@@ -48,10 +52,6 @@ const StyledInput = styled.input.attrs((props) => ({
       `
     );
   }}
-
-  &::placeholder {
-    color: #666;
-  }
 `;
 
 const Input = ({ id, big, ...props }) => {
