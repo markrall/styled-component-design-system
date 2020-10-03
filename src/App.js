@@ -1,45 +1,38 @@
 import React from "react";
 
-import { createGlobalStyle } from "styled-components";
 import Layout from "./components/Layout/Layout";
+import GlobalStyle from "./components/UI/GlobalStyles";
 import Input from "./components/UI/Input";
 
-const GlobalStyle = createGlobalStyle`
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-    margin: 0;
-    padding: 0;
-  }
-
-  :root {
-    --color-foreground: #eee;
-    --color-background: #222;
-  }
-
-  html {
-    font-size: 62.5%; // 1rem = 10px
-  }
-
-  body {
-    background-color: var(--color-background);
-    box-sizing: border-box;
-    color: var(--color-foreground);
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  }
-`;
-
 export default function App() {
+  const onChangeHandler = (e) => {
+    console.info("Input updated: ", e.target.id, e.target.value);
+  };
+
   return (
     <>
       <GlobalStyle />
       <Layout>
         <h1>React Input Component</h1>
         <h2>Customisable styled component</h2>
-        <Input />
-        <Input required type="email" placeholder="Enter email..." />
-        <Input big required placeholder="Make it happen..." />
+        <Input id="general" label="My new label" />
+        <Input
+          changed={onChangeHandler}
+          id="email"
+          label="Your email"
+          placeholder="e.g. yourname@example.com"
+          required
+          type="email"
+        />
+        <Input
+          big
+          changed={onChangeHandler}
+          id="age"
+          label="Your age"
+          placeholder="e.g. 45"
+          required
+          type="number"
+        />
       </Layout>
     </>
   );

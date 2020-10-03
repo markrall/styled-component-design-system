@@ -1,10 +1,15 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import Label from "./Label";
+
 // Based on:
 // -> https://www.smashingmagazine.com/2020/07/styled-components-react/
 // -> https://levelup.gitconnected.com/building-a-reusable-component-system-with-react-js-and-styled-components-4e9f1018a31c
 // -> https://css-tricks.com/a-complete-guide-to-calc-in-css/
+
+// Continue adding functionality for:
+// -> https://www.w3schools.com/tags/tag_input.asp
 
 const baseStyle = css`
   --font-size: inherit;
@@ -13,24 +18,11 @@ const baseStyle = css`
   --big: 1.75;
 `;
 
-const StyledLabel = styled.label`
-  ${baseStyle};
-  font-weight: bold;
-
-  ${(props) => {
-    return (
-      props.big &&
-      css`
-        font-size: calc(var(--big) * 1rem);
-      `
-    );
-  }}
-`;
-
 const StyledInput = styled.input.attrs((props) => ({
-  type: props.type || "text",
+  onChange: props.changed,
   placeholder: props.placeholder || "Enter text...",
-  required: props.required || false
+  required: props.required || false,
+  type: props.type || "text"
 }))`
   ${baseStyle};
   border: none;
@@ -62,12 +54,11 @@ const StyledInput = styled.input.attrs((props) => ({
   }
 `;
 
-const Input = ({ type, placeholder, big, ...props }) => {
+const Input = ({ id, big, ...props }) => {
   return (
-    <StyledLabel big={big}>
-      {props.label ? props.label : "Label"}
-      <StyledInput placeholder={placeholder} type={type} big={big} {...props} />
-    </StyledLabel>
+    <Label forName={id} big={big} label={props.label}>
+      <StyledInput id={id} big={big} {...props} />
+    </Label>
   );
 };
 
